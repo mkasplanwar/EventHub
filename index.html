@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Paket dan Layanan</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">EventHub</div>
+        <nav>
+            <ul>
+                <li><a href="venue.html">Venue</a></li>
+                <li><a href="sound-system.html">Sound System</a></li>
+                <li><a href="catering.html">Catering</a></li>
+                <li><a href="decorations.html">Decorations</a></li>
+                <li><a href="photography.html">Photography</a></li>
+                <li><a href="packages.html">Paket</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for vendors or packages...">
+            <button>Search</button>
+        </div>
+        <div class="auth-buttons">
+            <button id="login-btn">Login</button>
+            <button id="signup-btn">Sign Up</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Temukan Layanan Event Terbaik</h1>
+            <p>EventHub menyediakan semua kebutuhan event Anda, mulai dari venue hingga paket lengkap.</p>
+        </section>
+
+        <section id="packages">
+            <h2>Paket Populer</h2>
+            <div class="package-list">
+                <div class="package-card">
+                    <img src="wedding.jpeg" alt="Paket Pernikahan">
+                    <h3>Paket Pernikahan Premium</h3>
+                    <p>Termasuk: Venue, Dekorasi, Catering, Sound System</p>
+                    <p class="price">Rp 15.000.000 <span class="discount">(Diskon 20%)</span></p>
+                    <button>Detail Paket</button>
+                </div>
+                <div class="package-card">
+                    <img src="seminar.jpeg" alt="Paket Seminar">
+                    <h3>Paket Seminar Hemat</h3>
+                    <p>Termasuk: Kursi, Meja, Proyektor, Sound System</p>
+                    <p class="price">Rp 5.000.000</p>
+                    <button>Detail Paket</button>
+                </div>
+                <div class="package-card">
+                    <img src="birthday.jpeg" alt="Paket Ulang Tahun">
+                    <h3>Paket Ulang Tahun Anak</h3>
+                    <p>Termasuk: Dekorasi Balon, MC, Photobooth</p>
+                    <p class="price">Rp 7.000.000</p>
+                    <button>Detail Paket</button>
+                </div>
+                <div class="package-card">
+                    <img src="corporate.jpeg" alt="Paket Corporate">
+                    <h3>Paket Corporate Event</h3>
+                    <p>Termasuk: Venue, Catering, Dekorasi, MC, Sound System</p>
+                    <p class="price">Rp 20.000.000 <span class="discount">(Diskon 15%)</span></p>
+                    <button>Detail Paket</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EventHub. All rights reserved.</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="close-login">&times;</span>
+            <h2>Login</h2>
+            <form>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signup-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="close-signup">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="signup-email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="signup-password" name="password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
