@@ -6,6 +6,74 @@
     <title>EventHub - Packages</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
+
+    <style>
+        /* Pusatkan kontainer secara horizontal */
+        .card-container {
+            display: flex; /* Menggunakan Flexbox untuk pengaturan tata letak */
+            justify-content: center; /* Memusatkan kartu secara horizontal */
+            gap: 20px; /* Menambahkan jarak antar kartu */
+            flex-wrap: wrap; /* Mengatur agar kartu turun ke baris berikutnya jika terlalu banyak */
+            padding: 20px; /* Memberikan ruang di sekitar kartu */
+        }
+        
+        /* Gaya untuk kartu */
+        .service-card {
+            background: #f9f9f9; /* Warna latar belakang kartu */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            width: 300px; /* Lebar tetap kartu */
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .service-card h3 {
+            font-size: 1.2rem;
+            color: #561c24;
+            margin-top: 10px;
+        }
+        
+        .service-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+        
+        .service-card .price {
+            font-weight: bold;
+            color: #561c24;
+            margin-top: 10px;
+        }
+        
+        .service-card button {
+            background: #6d2932;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .service-card button:hover {
+            background: #561c24;
+        }
+        </style>
+        
 </head>
 <body>
     <header>
@@ -17,7 +85,7 @@
                 <li><a href="catering.html" target="_blank">Catering</a></li>
                 <li><a href="decorations.html" target="_blank">Decorations</a></li>
                 <li><a href="photography.html" target="_blank">Photography</a></li>
-                <li><a href="#packages">Paket</a></li>
+                <li><a href="packages.html" target="_blank">Paket</a></li>
             </ul>
         </nav>
         <div class="search-bar">
@@ -35,24 +103,29 @@
             <h1>Event Packages</h1>
             <p>Explore our curated packages that combine various services for your event.</p>
         </section>
-
-        <section id="packages-list">
-            <h2>Our Event Packages</h2>
-            <div class="package-card">
-                <h3>Basic Package</h3>
-                <p>Includes venue, sound system, and basic catering.</p>
-                <button>View Details</button>
-            </div>
-            <div class="package-card">
-                <h3>Premium Package</h3>
-                <p>All-inclusive package with decorations, photography, and premium catering.</p>
-                <button>View Details</button>
-            </div>
-            <div class="package-card">
-                <h3>Wedding Package</h3>
-                <p>Specialized package for weddings, including venue, catering, photography, and decorations.</p>
-                <button>View Details</button>
-            </div>
+        <div class="card-container">
+         <!-- Packages Card -->
+         <div class="service-card decorations-card">
+            <img src="pack1.jpeg" alt="Decorations Image">
+            <h3>Basic Package</h3>
+            <p>Includes venue, sound system, and basic catering.</p>
+            <div class="price">$150</div>
+            <button>Book Now</button>
+        </div>
+         <div class="service-card decorations-card">
+            <img src="pack2.jpeg" alt="Decorations Image">
+            <h3>Premium Package</h3>
+            <p>All-inclusive package with decorations, photography, and premium catering.</p>
+            <div class="price">$150</div>
+            <button>Book Now</button>
+        </div>
+         <div class="service-card decorations-card">
+            <img src="pack3.jpeg" alt="Decorations Image">
+            <h3>Wedding Package</h3>
+            <p>Specialized package for weddings, including venue, catering, photography, and decorations.</p>
+            <div class="price">$150</div>
+            <button>Book Now</button>
+        </div>
         </section>
     </main>
 

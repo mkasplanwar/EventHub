@@ -103,6 +103,7 @@ header nav ul li a:hover {
 .package-card img {
     width: 100%;
     border-radius: 10px;
+    height: 250px;
 }
 
 .price {
@@ -145,3 +146,112 @@ footer {
     font-size: 1.2rem;
     color: #561c24;
 }
+
+/* Section Styles for Venue, Sound System, Catering, Decorations, Photography */
+
+.service-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    background: #fafafa;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card img {
+    width: 100%;
+    border-radius: 10px;
+    height: 200px; /* Adjust for specific image height */
+    object-fit: cover;
+}
+
+.service-card h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #561c24;
+}
+
+.service-card p {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    color: #555;
+}
+
+.price {
+    color: #561c24;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.service-card button {
+    background: #6d2932;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.service-card button:hover {
+    background: #561c24;
+}
+
+/* Add specific service categories */
+.venue-card {
+    background: #f9f9f9;
+}
+#venue-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.venue-card {
+    width: 300px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.venue-card img {
+    width: 100%;
+    border-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.venue-card:hover {
+    transform: translateY(-5px);
+}
+
+.sound-system-card {
+    background: #f1f1f1;
+}
+
+.catering-card {
+    background: #fff9f9;
+}
+
+.decorations-card {
+    background: #f3f3f3;
+}
+
+.photography-card {
+    background: #f2f2f2;
+}
+
+
+
