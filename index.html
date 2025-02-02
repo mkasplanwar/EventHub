@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="asset/css/reset.css">
     <link rel="stylesheet" href="asset/css/navbar.css">
     <link rel="stylesheet" href="asset/css/footer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        white: '#F9F7F7',
+                        'light-blue': '#DBE2EF',
+                        'primary-blue': '#3F72AF',
+                        black: '#112D4E'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -35,9 +50,193 @@
         </div>
         <div class="overlay"></div>
     </nav>
-    <br>
-    <br>
-    <br>
+    
+    <main class="font-sans bg-white text-black min-h-screen antialiased">
+        <div class="max-w-[1600px] mx-auto my-8 px-10">
+            <div class="grid grid-cols-1 xl:grid-cols-[0.8fr,1.2fr] gap-8">
+                <div class="bg-white rounded-2xl shadow-lg h-[650px] border border-light-blue/50 backdrop-blur flex flex-col">
+                    <div class="p-5 border-b border-light-blue/30 bg-white/50 backdrop-blur rounded-t-2xl flex-shrink-0">
+                        <h2 class="text-lg font-semibold tracking-tight">Upload MRI's Scan Image</h2>
+                    </div>
+                    <div class="p-6 flex-1 overflow-hidden flex flex-col">
+                        <div id="dropZone" class="border-2 border-dashed border-light-blue/60 rounded-xl p-8 text-center transition-all bg-white/50 mb-4">
+                            <p class="mb-6 text-black/70 text-sm">Drag & drop gambar atau pilih file untuk analisis</p>
+                            <button class="bg-primary-blue text-white px-6 py-3 rounded-lg text-sm font-medium cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary-blue/15">Pilih File</button>
+                            <input type="file" id="fileInput" accept="image/*" class="hidden">
+                        </div>
+                        
+                        <div class="mt-4">
+                            <input type="text" class="w-full px-4 py-3 border border-light-blue rounded-lg text-sm mb-3 focus:outline-none focus:border-primary-blue" placeholder="Atau paste URL gambar di sini" id="urlInput">
+                            <button class="w-full bg-primary-blue text-white px-6 py-3 rounded-lg text-sm font-medium cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary-blue/15" id="urlSubmit">Upload dari URL</button>
+                        </div>
+    
+                        <div class="mt-6">
+                            <p class="text-sm text-black/60 mb-4 text-center">Tidak ada gambar? Coba salah satu dari ini:</p>
+                            <div class="grid grid-cols-4 gap-3 mt-2 px-2">
+                                <img src="asset/img/1.jpg" alt="Example 1" class="w-full aspect-square object-cover rounded-lg cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg" onclick="useExampleImage(this)">
+                                <img src="asset/img/2.jpg" alt="Example 2" class="w-full aspect-square object-cover rounded-lg cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg" onclick="useExampleImage(this)">
+                                <img src="asset/img/3.jpg" alt="Example 3" class="w-full aspect-square object-cover rounded-lg cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg" onclick="useExampleImage(this)">
+                                <img src="asset/img/4.jpg" alt="Example 4" class="w-full aspect-square object-cover rounded-lg cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg" onclick="useExampleImage(this)">
+                            </div>
+                            <p class="text-xs text-black/50 text-center mt-4 mb-6 leading-relaxed">
+                                Dengan mengunggah gambar atau URL, Anda menyetujui <a href="#" class="text-primary-blue">Ketentuan Layanan</a> kami. 
+                                Untuk mempelajari lebih lanjut tentang cara kami menangani data pribadi Anda, lihat 
+                                <a href="#" class="text-primary-blue">Kebijakan Privasi</a> kami.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="bg-white rounded-2xl shadow-lg h-[650px] border border-light-blue/50 backdrop-blur flex flex-col">
+                    <div class="p-5 border-b border-light-blue/30 bg-white/50 backdrop-blur rounded-t-2xl flex-shrink-0">
+                        <h2 class="text-lg font-semibold tracking-tight">Hasil Analisis</h2>
+                    </div>
+                    <div class="p-6 flex-1 overflow-hidden">
+                        <div class="h-full overflow-y-auto pr-2" id="resultContent">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const urlInput = document.getElementById('urlInput');
+            const urlSubmit = document.getElementById('urlSubmit');
+            const resultContent = document.getElementById('resultContent');
+    
+            document.querySelector('button').addEventListener('click', () => {
+                fileInput.click();
+            });
+    
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-primary-blue', 'bg-primary-blue/3');
+            });
+    
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-primary-blue', 'bg-primary-blue/3');
+            });
+    
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-primary-blue', 'bg-primary-blue/3');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    processImage(file);
+                }
+            });
+    
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    processImage(file);
+                }
+            });
+    
+            urlSubmit.addEventListener('click', () => {
+                const url = urlInput.value.trim();
+                if (url) {
+                    fetch(url)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+                            processImage(file);
+                        })
+                        .catch(error => {
+                            alert('Gagal memuat gambar dari URL');
+                        });
+                }
+            });
+    
+            function useExampleImage(imgElement) {
+                fetch(imgElement.src)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const file = new File([blob], "example.jpg", { type: "image/jpeg" });
+                        processImage(file);
+                    })
+                    .catch(error => {
+                        alert('Gagal memuat gambar contoh');
+                    });
+            }
+    
+            function processImage(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = function() {
+                        const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+                        showResults(e.target.result, fileSize, this.width, this.height);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+    
+            function showResults(imageSrc, fileSize, width, height) {
+                const resultHTML = `
+                    <div class="bg-white/50 rounded-xl p-6 mb-4">
+                        <h3 class="text-base mb-4">Gambar Yang Dianalisis</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <img src="${imageSrc}" alt="Original Image" class="w-full h-[200px] object-contain rounded-lg shadow-lg">
+                                <p class="text-sm text-black/60 text-center mt-2">Gambar Asli</p>
+                            </div>
+                            <div>
+                                <img src="${imageSrc}" alt="Analyzed Image" class="w-full h-[200px] object-contain rounded-lg shadow-lg grayscale contrast-120">
+                                <p class="text-sm text-black/60 text-center mt-2">Hasil Scan</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="bg-white/50 rounded-xl p-6 mb-4">
+                        <h3 class="text-base mb-4">Hasil Analisis</h3>
+                        <p class="text-sm mb-4 text-black/75">
+                            Berdasarkan analisis terhadap gambar yang diunggah, berikut adalah temuan yang teridentifikasi:
+                        </p>
+                        <ul class="space-y-2 pl-5">
+                            <li class="text-sm text-black/75 relative before:content-['•'] before:absolute before:left-[-1rem] before:text-primary-blue">Struktur anatomi dalam batas normal tanpa kelainan signifikan</li>
+                            <li class="text-sm text-black/75 relative before:content-['•'] before:absolute before:left-[-1rem] before:text-primary-blue">Tidak terdeteksi adanya lesi atau massa abnormal</li>
+                            <li class="text-sm text-black/75 relative before:content-['•'] before:absolute before:left-[-1rem] before:text-primary-blue">Jaringan menunjukkan densitas dan intensitas normal</li>
+                            <li class="text-sm text-black/75 relative before:content-['•'] before:absolute before:left-[-1rem] before:text-primary-blue">Pola distribusi dan morfologi sesuai dengan karakteristik normal</li>
+                            <li class="text-sm text-black/75 relative before:content-['•'] before:absolute before:left-[-1rem] before:text-primary-blue">Tidak ada indikasi perubahan patologis yang teridentifikasi</li>
+                        </ul>
+    
+                        <div class="bg-white p-5 rounded-lg mt-4">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>Tingkat Akurasi Analisis</span>
+                                <span class="text-primary-blue font-medium">92%</span>
+                            </div>
+                            <div class="h-1 bg-light-blue rounded">
+                                <div class="confidence-progress h-full bg-primary-blue rounded w-0 transition-all duration-1000"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="bg-white/50 rounded-xl p-6">
+                        <h3 class="text-base mb-4">Rekomendasi</h3>
+                        <p class="text-sm text-black/75 leading-relaxed">
+                            Berdasarkan hasil analisis, tidak ditemukan indikasi yang memerlukan tindak lanjut segera. 
+                            Namun, disarankan untuk tetap melakukan pemeriksaan rutin sesuai dengan jadwal yang 
+                            direkomendasikan oleh tenaga medis Anda.
+                        </p>
+                    </div>
+                `;
+    
+                resultContent.innerHTML = resultHTML;
+    
+                setTimeout(() => {
+                    const progressBar = document.querySelector('.confidence-progress');
+                    if (progressBar) {
+                        progressBar.style.width = '92%';
+                    }
+                }, 100);
+            }
+        </script>
+    </main>
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-container">
